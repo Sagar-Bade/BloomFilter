@@ -6,25 +6,25 @@ using namespace std;
 
 class BloomFilter{
     
-    bool bitarray[50];
+    bool bitarray[100];
     int arrSize;
     
     public:
     
 BloomFilter(){
     
-    bitarray[50] = { false };
-	arrSize = 50;
+    bitarray[100] = { false };
+	arrSize = 100;
 }
-    
     
     
 int hashfunction1(string s)
     {
+        
 	int hash = 0;
 	for (int i = 0; i < s.size(); i++)
 	{
-		hash = ((hash << 6) + (hash << 16) - hash) + s[i];
+		hash = hash*i + 32 + s[i];
 		hash = hash % arrSize;
 	}
 	return hash;
@@ -32,10 +32,11 @@ int hashfunction1(string s)
 
 int hashfunction2(string s)
     {
+        
 	int hash = 30;
-	
 	for (int i = 0; i < s.size(); i++) {
-		hash = ((hash << 5) + hash) + s[i];
+	    
+		hash = hash*20+hash*pow(10,i) + s[i];
 		hash = hash % arrSize;
 	}
 	return hash;
@@ -43,6 +44,7 @@ int hashfunction2(string s)
 
 int hashfunction3(string s)
     {
+        
 	int hash = 1;
 	for (int i = 0; i < s.size(); i++)
 	{
@@ -55,12 +57,13 @@ int hashfunction3(string s)
 
 int hashfunction4(string s)
     {
+        
 	int hash = 7;
 	for (int i = 0; i < s.size(); i++)
 	{
 		hash = (hash * 31 + s[i]) % arrSize;
 	}
-	return hash % arrSize;
+	return hash;
     }
 
 
@@ -110,17 +113,17 @@ int main()
 {
 	
 	string testarray[33]
-		= { "abound", "abounds",	 "abundance",
-			"abundant", "accessible", "bloom",
-			"blossom", "bolster",	 "bonny",
-			"bonus", "bonuses",	 "coherent",
-			"cohesive", "colorful",	 "comely",
-			"comfort", "gems",		 "generosity",
-			"generous", "generously", "genial",
-			"bluff", "cheater",	 "hate",
-			"war",	 "humanity",	 "racism",
-			"hurt",	 "nuke",		 "gloomy",
-			"facebook", "sagar", "twitter" };
+		= {  "abound",   "abounds",       "abundance",
+            "abundant", "accessible",    "bloom",
+            "blossom",  "bolster",       "bonny",
+            "bonus",    "bonuses",       "coherent",
+            "cohesive", "colorful",      "comely",
+            "comfort",  "gems",          "generosity",
+            "generous", "generously",    "genial",
+            "bluff",    "cheater",       "hate",
+            "war",      "humanity",      "racism",
+            "hurt",     "nuke",          "gloomy",
+            "facebook", "c++", "twitter" };
 			
 	BloomFilter b;
     
